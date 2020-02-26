@@ -1,0 +1,135 @@
+﻿@model IEnumerable<And.Eticaret.Core.Model.Entity.UserAdress>
+@{
+    ViewBag.Title = "PaymentStep";
+
+}
+
+<h2>Ödeme Yöntemi</h2>
+
+<div class="container">
+
+    <div class="col-12 col-md-8">
+
+        <div class="payment-box">
+            <div class="jumbotron jumbotron-fluid">
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Kredi Kartı Ödeme</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Havale</a>
+
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <p>Havale yapmak istediğiniz bankayı seçerek devam edin</p>
+                        <div class="basket-cart-right">
+
+                            <table class="table order_list">
+                                <tbody>
+                                    <tr class="basket-ordersummary__total">
+                                        <td class="text-left"><img src="https://www.vatanbilgisayar.com/assets/dist/images/checkout/garanti.jpg" alt="Garanti Bankası" /></td>
+                                        <td class="text-center strn"><strong>Garanti Bankası</strong><br />019-6298134<br />TR05 0006 2001 6740 0006 2981 34</td>
+                                        <td class="text-right">
+                                            <label class="wrapper-radio">
+                                                <input type="radio" name="transfer_type" value="Garanti Bankası 019-6298134 TR05 0006 2001 6740 0006 2981 34" />
+                                                <span class="checkmark">
+
+                                                </span>
+                                                Seç
+                                            </label>
+
+                                        </td>
+                                    </tr>
+                                    <tr class="basket-ordersummary__total">
+                                        <td class="text-left"><img src="https://www.vatanbilgisayar.com/assets/dist/images/checkout/yapikredi.jpg" alt="Yapı Kredi Bankası" /></td>
+                                        <td class="text-center strn"><strong>Yapı Kredi Bankası</strong><br />226-86681338<br />TR16 0006 7010 0000 0086 6813 38</td>
+                                        <td class="text-right">
+                                            <label class="wrapper-radio">
+                                                <input type="radio" name="transfer_type" value="Yapı Kredi Bankası 226-86681338 TR16 0006 7010 0000 0086 6813 38" />
+                                                <span class="checkmark">
+
+                                                </span>
+                                                Seç
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr class="basket-ordersummary__total">
+                                        <td class="text-left"><img src="https://www.vatanbilgisayar.com/assets/dist/images/checkout/akbank.jpg" alt="AKBANK" /></td>
+                                        <td class="text-center strn"><strong>AKBANK</strong><br />0067-0093237<br />TR90 0004 6000 6788 8000 0932 37</td>
+                                        <td class="text-right">
+                                            <label class="wrapper-radio">
+                                                <input type="radio" name="transfer_type" value="Akbank 0067-0093237 TR90 0004 6000 6788 8000 0932 37" />
+                                                <span class="checkmark">
+
+                                                </span>
+                                                Seç
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr class="basket-ordersummary__total">
+                                        <td class="text-left"><img src="https://www.vatanbilgisayar.com/assets/dist/images/checkout/finansbank.jpg" alt="finansbank" /></td>
+                                        <td class="text-center strn"><strong>Finans Bankası</strong><br />00882-27094252<br />TR38 0011 1000 0000 0027 0942 52</td>
+                                        <td class="text-right">
+                                            <label class="wrapper-radio">
+                                                <input type="radio" name="transfer_type" value="Finans Bankası 00882-27094252 TR38 0011 1000 0000 0027 0942 52" />
+                                                <span class="checkmark">
+
+                                                </span>
+                                                Seç
+                                            </label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    @Html.ActionLink("Siparişi Tamamla", "CreateOrder", new { id = item.ID })
+                                    @*<a href="/Order/CreateOrder/@item.ID" , class="btn btn-success"><i class="fas fa-tags"></i> Siparişi Onayla</a>*@
+                                }
+                            }
+
+
+
+                            <a href="/" class="btn btn-primary">Alışverişe Devam</a>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col-6 col-md-4">
+        <div class="payment-box">
+
+
+        </div>
+
+    </div>
+
+
+    <style>
+
+        .payment-box {
+            padding: 20px;
+            border: 1px solid #e8e8e8;
+            margin-bottom: 5px;
+        }
+
+        .buttons
+
+        .payment-box img {
+            width: 90px;
+            height: 60px;
+        }
+    </style>

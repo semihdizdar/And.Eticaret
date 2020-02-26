@@ -1,0 +1,60 @@
+﻿@model IEnumerable<And.Eticaret.Core.Model.Entity.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Siparişlerim</h2>
+
+
+<table class="table">
+    <tr>
+
+        <th>Sipariş No</th>
+        <th>
+            <strong>Sipariş Durumu</strong>
+        </th>
+
+
+        <th>
+            <strong>Ödenecek Tutar</strong>
+        </th>
+
+
+        <th>
+            <strong>Sipariş Tarihi</strong>
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Name)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalProductPrice)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+
+            <td>
+                @Html.ActionLink("Siparis Detayı", "Detail", new { id = item.ID }) |
+             
+            </td>
+        </tr>
+    }
+
+</table>

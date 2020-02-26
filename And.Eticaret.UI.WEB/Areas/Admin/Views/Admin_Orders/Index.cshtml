@@ -1,0 +1,82 @@
+﻿@model IEnumerable<And.Eticaret.Core.Model.Entity.Order>
+
+@{
+    ViewBag.Title = "Sipariş Bilgileri";
+}
+
+<h2>Sipariş Bilgileri</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            <strong>Sipariş Durumu</strong>
+
+        </th>
+        <th>
+            <strong>Kullanıcı Bilgileri</strong>
+        </th>
+        <th>
+            <strong>Adres Bilgisi</strong>
+        </th>
+        <th>
+            <strong>Ürün Bedeli</strong>
+        </th>
+        <th>
+            <strong>Vergi Bedeli</strong>
+        </th>
+        <th>
+            <strong>indirim Tutarı</strong>
+        </th>
+        <th>
+            <strong>Toplam Ürün Bedeli</strong>
+        </th>
+        <th>
+            <strong>Sipariş Tarihi</strong>
+        </th>
+
+        <th>İşlem Türü</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.Name)
+            </td>
+            <td>
+                <strong>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                    @Html.DisplayFor(model => item.User.LastName)
+                </strong>
+                @Html.DisplayFor(model => item.User.Email)-
+                @Html.DisplayFor(model => item.User.Telephone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserAdress.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalProductPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalTaxPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalDiscount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+
+            <td>
+                @Html.ActionLink("Düzelt", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Detay", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Sil", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

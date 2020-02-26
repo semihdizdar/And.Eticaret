@@ -1,0 +1,157 @@
+﻿@model  List<And.Eticaret.Core.Model.Entity.Product>
+
+@{
+    ViewBag.Title = "ındex";
+    var category = (And.Eticaret.Core.Model.Entity.Category)ViewBag.category;
+
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+
+
+<h2>@category.Name Katogorisindeki Ürünler</h2>
+<br />
+
+
+<div class="row">
+
+    <div class="pull-left col-md-2">
+        <h3>Filtreler</h3>
+    </div>
+
+    <div class="pull-right col-md-10">
+        @{
+
+            foreach (var item in Model)
+            {
+                <div class="col-md-3">
+
+
+                    <div class="productBox">
+                        <a href="/urun/@item.Name.Replace(" ","-")/@item.ID">
+                            <img src="@item.ImageUrl" alt="Computer" /> <br />
+
+                            <div class="productName text-center">
+                                <a href="/urun/@item.Name.Replace(" ","-")/@item.ID">@item.Name</a>
+                            </div>
+
+                            <div class="product-list__cost text-center">
+
+                                <span class="product-list__price">@item.Price</span>
+                                <span class="product-list__currency">TL</span>
+                                <span class="product-list__current-price"></span>
+                            </div>
+
+
+                            <div class="productBtn">
+                                @*<a href="#" class="btn btn-success text-center">*@
+                                <a href="#" data-pID="@item.ID" class="btn btn-success text-center addBasket">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    Sepete Ekle
+                                </a>
+                            </div>
+
+
+                    </div>
+
+                </div>
+
+
+            }
+
+        }
+    </div>
+</div>
+<div class="row"></div>
+@*@Html.PagedListPager(Model, page => Url.Action("Index", "Home", new { page, search = Request.QueryString["search"] }))*@
+
+<div id="andModel" title="Ürün Eklendi">
+    <p>Ürün Sepete Eklenmiştir.</p>
+    <a href="/Sepetim" class="btn btn-info btn-sm" role="button">Sepete Git</a>
+    <a href="/" class="btn btn-secondary btn-sm">Alışverişe Devam Et</a>
+</div>
+
+<style>
+
+    .product-list__cost {
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+
+    .product-list__price {
+        color: #003177;
+        font-family: Roboto,Arial,sans-serif;
+        font-weight: 700;
+    }
+
+    .productBox {
+        padding: 20px;
+        margin: 0 10px 30px;
+        width: 210px;
+        float: left;
+        border: 1px solid #d0d0d0;
+        border-radius: 6px;
+        box-shadow: 3px 3px #f1f1f1;
+    }
+
+    .productName {
+        font-family: Roboto,Arial,sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        color: #000;
+        height: 34px;
+        overflow: hidden;
+    }
+
+    .productBtn {
+        width: 50%;
+        height: auto;
+        margin: 20px 20px 0 20px;
+    }
+
+    .productBox img {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .productBox title {
+        font-weight: bold;
+    }
+</style>
+
+@section script{
+
+    <script type="text/javascript">
+
+        //Modal Script
+
+        $(function () {
+            $("#andModel").dialog({
+                autoOpen: false,
+                show: {
+                    effect: "blind",
+                    duration: 1000
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 1000
+                }
+            });
+
+            $(".addBasket").on("click", function () {
+
+                var pID = $(this).attr("data-pID");
+                $.post("/Basket/AddProduct?productID=" + pID + " &quantity=1", function (data) {
+                    $("#andModel").dialog("open");
+
+                });
+
+
+                return false;
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<And.Eticaret.Core.Model.Entity.UserAdress>
+
+@{
+    ViewBag.Title = "Teslimat";
+    
+
+}
+
+<h2>Teslimat Bilgileri</h2>
+
+
+
+
+<div class="container">
+
+    <div class="col-12 col-md-8">
+        <div class="basket-cart">
+            <div class="jumbotron jumbotron-fluid">
+                <p>
+                    @Html.ActionLink("Yeni Adres Ekle", "CreateUserAddress")
+                </p>
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Listeden geçerli adresinizi seçiniz, yoksa yeni adres ekleyin.
+                </div>
+                <div class="container">
+
+                    @foreach (var item in Model)
+                    {
+
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-warning">Adres Başlığı</li>
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.Title, new { @class = "wrapper-radio" })</li>
+                            <li class="list-group-item list-group-item-warning">Şehir</li>
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.City)</li>
+                            <li class="list-group-item list-group-item-warning">İlçe</li>
+                            <li class="list-group-item">@Html.DisplayFor(modelItem => item.Address)</li>
+                            <li class="list-group-item list-group-item-warning">İşlem</li>
+                            <li class="list-group-item"><strong> @Html.ActionLink("Adresi Seç", "PaymentStep" , new { id = item.ID })</strong></li>
+                        </ul>
+
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-6 col-md-4">
+        <div class="basket-cart-right">
+            <h4 class="ordersummary__title">Sipariş Özeti</h4>
+            <table class="table order_list">
+                <tbody>
+         
+                    <tr>
+                        <td><strong>Ara Toplam</strong></td>
+                        <td class="text-right">-</td>
+                        
+                    </tr>
+                    <tr>
+                        <td><strong>Indirim</strong></td>
+                        <td class="text-right">0 ₺</td>
+                    </tr>
+                    <tr>
+                        <td><strong>KDV</strong></td>
+                        <td class="text-right">@ViewBag.subtax</td>
+                    </tr>
+                    <tr class="basket-ordersummary__total">
+                        <td><strong>TOPLAM</strong></td>
+                        <td class="text-right strn"><strong>@ViewBag.total</strong></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<style>
+
+    .basket-cart {
+        padding: 20px;
+        border: 1px solid #e8e8e8;
+        margin-bottom: 5px;
+    }
+
+    .wrapper-radio {
+        color: #003177;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+     .basket-cart-right {
+        padding: 30px;
+        padding: 20px;
+        border: 1px solid #e8e8e8;
+        margin-bottom: 5px;
+    }
+</style>

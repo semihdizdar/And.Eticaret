@@ -1,0 +1,30 @@
+﻿@model IEnumerable<And.Eticaret.Core.Model.Entity.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_UserInfo.cshtml";
+}
+
+
+@{
+    <h2>Uye Bilgi</h2>
+    foreach (var item in Model)
+    {
+        <label>İsim :</label>
+        <input type="text" id="lname" name="lname" value="@Html.DisplayFor(modelItem => item.Name)">
+        <br>
+        <br>
+        <label>Soyadı</label>
+        <input type="text" id="lname" name="lname" value="@Html.DisplayFor(modelItem => item.LastName)">
+        <br>
+        <br>
+        <label>Telefon Numarası</label>
+        <input type="text" id="lname" name="lname" value="@Html.DisplayFor(modelItem => item.Telephone)">
+        <br>
+        <br>
+        <label>Email Adresi</label>
+        <input type="text" id="lname" name="lname" value="@Html.DisplayFor(modelItem => item.Email)">
+
+
+    }
+}
+

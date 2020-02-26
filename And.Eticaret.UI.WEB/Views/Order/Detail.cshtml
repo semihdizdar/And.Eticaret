@@ -1,0 +1,92 @@
+﻿@model And.Eticaret.Core.Model.Entity.Order
+@{
+    ViewBag.Title = "Siparişinz Alınmıştır";
+}
+
+
+
+<main class="checkout-success">
+    <div class="global-container">
+
+        <img src="https://www.vatanbilgisayar.com/assets/dist/images/checkout/checkout-success.png" alt="Alternate Text" />
+    </div>
+    <h2>Siparişiniz Başarıyla Alınmıştır</h2>
+    <h1> Teşekkürler @Model.User.Name @Model.User.LastName</h1>
+    <h1>Sipariş Durumu : <strong>@Model.Status.Name</strong></h1>
+
+
+</main>
+
+<div class="col-12 col-md-8">
+
+    <div class="detail-box">
+
+
+
+        <table class="table">
+            <div class="basket-cart__table-row basket-cart__table-header">
+                <tr>
+
+                    <th>Ürün Resmi</th>
+                    <th>Ürün Adı</th>
+                    <th>Miktar</th>
+                    <th>Avantajlı Fiyat</th>
+
+                </tr>
+            </div>
+
+            @foreach (var item in Model.OrderProducts)
+            {
+                <tr>
+                    <td><img src="@item.Product.ImageUrl" class="img-thumbnail" alt="..."></td>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product.Price.ToString("##,## ₺")</td>
+                </tr>
+            }
+
+
+
+        </table>
+        <hr />
+
+        <b>Ödenecek Tutar : </b> @Model.TotalProductPrice.ToString("##,## ₺")
+        <br />
+        @if (Model.StatusID == 1)
+        {
+        <a href="/Order/Pay?id=@Model.ID" class="btn btn-success">Ödeme Yapıldı</a>
+        }
+    </div>
+
+</div>
+
+
+<style>
+
+
+    .detail-box {
+        padding: 20px;
+        border: 1px solid #e8e8e8;
+        margin-bottom: 5px;
+    }
+
+    .img-thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+
+    .global-container {
+        width: 1366px;
+        box-sizing: border-box;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0 15px;
+        position: relative;
+    }
+
+    .checkout-success {
+        padding: 25px 0;
+        background: #fff;
+        text-align: center;
+    }
+</style>

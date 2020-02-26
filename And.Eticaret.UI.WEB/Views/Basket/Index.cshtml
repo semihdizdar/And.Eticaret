@@ -1,0 +1,215 @@
+﻿@model IEnumerable<And.Eticaret.Core.Model.Entity.Basket>
+@{
+    ViewBag.Title = "Sepetim";
+    //var order = (And.Eticaret.Core.Model.Entity.Order)ViewBag.order;
+    var order = (And.Eticaret.Core.Model.Entity.Order)ViewBag.basket;
+
+
+}
+
+<br />
+<br />
+<br />
+<br />
+
+
+<div class="container">
+
+
+
+    <div class="col-12 col-md-8">
+
+
+
+
+
+        <div class="panel panel-primary">
+            <div class="panel-heading"><b>Sepetim</b></div>
+            <div class="panel-body">
+                <table class="table">
+
+                    <tr>
+                        <th>Ürün Resmi</th>
+                        <th>Ürün Adı</th>
+                        <th>Miktar</th>
+                        <th>Avantajlı Fiyat</th>
+                        <th>İşlem</th>
+                    </tr>
+
+                    @{
+                        decimal subtotal = 0;
+                        decimal subtax = 0;
+                        decimal total = 0;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td><img src="@item.Product.ImageUrl" class="img-thumbnail" alt="..."></td>
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.Name)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+
+                            <td>@item.Product.Price.ToString("##,## ₺")</td>
+
+
+
+
+                            @*<td> @Html.DisplayFor(modelItem => item.Product.Price.ToString("##,## tl"))</td>*@
+
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => order.OrderPayments)
+                                </td>*@
+                            <td>
+
+                                @Html.ActionLink("Sil", "Delete", new { id = item.ID }, new { onclick = "return confirm('Eminmisin Bro?');", @class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                        total = total + item.Product.Price;
+                        subtax = subtax + item.Product.Price * item.Product.Tax / 100;
+                        subtotal = subtotal + (item.Product.Price * (100 - item.Product.Tax)) / 100;
+                        
+
+                    }
+
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <div class="col-6 col-md-4">
+        <div class="basket-cart-right">
+            <h4 class="ordersummary__title">Sipariş Özeti</h4>
+            <table class="table order_list">
+                <tbody>
+                    <tr>
+                        <td><strong>Ara Toplam</strong></td>
+                        <td class="text-right">@subtotal.ToString("##,## ₺")</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Indirim</strong></td>
+                        <td class="text-right">0 ₺</td>
+                    </tr>
+                    <tr>
+                        <td><strong>KDV</strong></td>
+                        <td class="text-right">@subtax.ToString("##,## ₺")</td>
+                    </tr>
+                    <tr class="basket-ordersummary__total">
+                        <td><strong>TOPLAM</strong></td>
+                        <td class="text-right strn"><strong> @total.ToString("##,## ₺")</strong></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <a href="/SatınAl" class="btn btn-success"><i class="fas fa-tags"></i> Devam Et</a>
+            <a href="/" class="btn btn-primary">Alışverişe Devam</a>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<hr />
+
+
+
+
+<style>
+
+    .basket-cart {
+        padding: 20px;
+        border: 1px solid #e8e8e8;
+        margin-bottom: 5px;
+    }
+
+    .basket-cart__table-header {
+        background: #f5f5f5;
+        min-height: 0;
+        height: 20px;
+        padding: 0;
+        border-radius: 3px;
+        font-weight: 700;
+    }
+
+    .basket-cart__table-column.info {
+        width: 48%;
+    }
+
+    .basket-cart__table-column.count {
+        padding-left: 12px;
+        width: 15%;
+        text-align: center;
+    }
+
+    .product-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60px;
+        height: 60px;
+        border: 1px solid #e8e8e8;
+        border-radius: 3px;
+    }
+
+    .img-thumbnail {
+        width: 60px;
+        height: 60px;
+    }
+
+    .ordersummary__title {
+        color: #003177;
+        font-weight: 700;
+        font-size: 20px;
+    }
+
+    .basket-cart-right {
+        padding: 30px;
+        padding: 20px;
+        border: 1px solid #e8e8e8;
+        margin-bottom: 5px;
+    }
+
+    table.active {
+        color: #003177;
+        background: 0 0 !important;
+    }
+
+    .table {
+        width: 100%;
+        max-width: 100%;
+    }
+
+        .table strn {
+            color: #003177;
+            background: 0 0 !important;
+            font-size: 30px !important;
+        }
+
+    .basket-ordersummary__total {
+        color: #003177;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .basket-ordersummary__list td.active {
+        color: #003177;
+        background: 0 0 !important;
+    }
+
+    .basket-ordersummary__total td.strong {
+        font-size: 30px !important;
+    }
+</style>
